@@ -4,14 +4,13 @@ import HelloWorld from '@/components/HelloWorld'
 import Signup from '@/components/Signup'
 import Signin from '@/components/Signin'
 
-
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'signin',
+      path: '*',
+      name: 'signin'
     },
     {
       path: '/',
@@ -22,7 +21,8 @@ export default new Router({
       path: '/signup',
       name: 'Signup',
       component: Signup
-    },{
+    },
+    {
       path: '/signin',
       name: 'Signin',
       component: Signin

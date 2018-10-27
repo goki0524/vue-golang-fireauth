@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 )
 
@@ -16,9 +17,13 @@ func private(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	allowedOrigins := handlers.AllowedOrigins([]string{"http://localhost:8080"})
+	allowedMehhods := handlers.AllowedMethods([]string{"GET", "POST", "DELETE", "PUT"})
+	allowedHeaders := handlers.AllowedHeaders([]string{"Authorization"})
+
 	r := mux.NewRouter()
 	r.HandleFunc("/public", public)
 	r.HandleFunc("/private", private)
 
-	log.Fatal(http.ListenAndServe(":8000", r))
+	log.Fatal(http.ListenAndServe(":8000", handlers.CORS(allowedOrigins, allowedMehhods, allowedHeaders)(r)))
 }
